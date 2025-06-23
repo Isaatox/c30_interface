@@ -7,17 +7,14 @@ import Box from './Box';
 import { CiLight } from 'react-icons/ci';
 import { FaPerson } from 'react-icons/fa6';
 import { FaBatteryThreeQuarters } from 'react-icons/fa';
-import { MdPowerSettingsNew } from 'react-icons/md';
+import { BsFillBellFill } from 'react-icons/bs';
 
-// Configurer Day.js en français
 dayjs.locale('fr');
 
 export default function TopBar() {
   const [now, setNow] = useState(dayjs());
   const [seconds, setSeconds] = useState(0);
-  const [isOn, setIsOn] = useState(true);
 
-  // Mettre à jour l'heure actuelle chaque seconde
   useEffect(() => {
     const interval = setInterval(() => {
       setNow(dayjs());
@@ -33,19 +30,6 @@ export default function TopBar() {
     '0'
   )}:${String(seconds % 60).padStart(2, '0')}`;
 
-  // Bouton central si éteint
-  if (!isOn) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-black">
-        <button
-          onClick={() => setIsOn(true)}
-          className="px-8 py-4 bg-green-600 text-white text-2xl rounded-lg hover:bg-green-700 transition-colors"
-        >
-          ALLUMER
-        </button>
-      </div>
-    );
-  }
 
   return (
     <div className="flex items-center justify-between bg-black text-white p-2 text-sm font-mono">
@@ -75,23 +59,18 @@ export default function TopBar() {
         <Box>
           <FaBatteryThreeQuarters className="w-10 h-10 rotate-180" />
         </Box>
-        <button
-          onClick={() => setIsOn(false)}
-          className="
-    group relative flex items-center rounded-md font-bold text-white transition
-    focus:outline-none focus:ring-2 focus:ring-yellow-400
-  "
-        >
+        
           <Box
             className=" !p-2
       bg-yellow-600 flex flex-col items-center justify-center
       group-hover:bg-yellow-500 group-active:scale-95 transition-all
     "
           >
-            <MdPowerSettingsNew className="w-10 h-10" />
+            <BsFillBellFill className="w-10 h-10"/>
+
+            {/* <MdPowerSettingsNew className="w-10 h-10" /> */}
             <span className="text-sm">ON</span>
           </Box>
-        </button>
       </div>
     </div>
   );
