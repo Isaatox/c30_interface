@@ -9,6 +9,8 @@ type ConstantProps = {
     divClass?: string;
     titleClass?: string;
     asMultipleConstant?: boolean;
+    constant1: number;
+    constant2?: number;
 };
 
 export default function Constant({
@@ -20,7 +22,9 @@ export default function Constant({
     max2,
     divClass,
     titleClass,
-    asMultipleConstant = false
+    asMultipleConstant = false,
+    constant1,
+    constant2
 }: ConstantProps) {
     return (
         <div className={`flex flex-col flex-1 w-full p-1 bg-blue-500 border-blue-950 border ${divClass || ''}`}>
@@ -29,13 +33,15 @@ export default function Constant({
                 <p className="text-2xl">{titleInformation}</p>
             </div>
 
-            {asMultipleConstant && max2 && min2 ? (
+            {asMultipleConstant && max2 && min2 && constant2 ? (
                 <>
-                    <ConstantInfo max={max} min={min} />
-                    <ConstantInfo max={max2} min={min2} />
+                <div className="flex flex-row h-full">
+                    <ConstantInfo max={max} min={min} infoTitle="SYS" constant={constant1}/>
+                    <ConstantInfo max={max2} min={min2} infoTitle="DIA" constant={constant2}/>
+                </div>
                 </>
             ) : (
-                <ConstantInfo max={max} min={min} />
+                <ConstantInfo max={max} min={min} constant={constant1}/>
             )}
         </div>
     );
